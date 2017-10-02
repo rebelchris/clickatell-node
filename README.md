@@ -1,91 +1,19 @@
-Clickatell NodeJS Library
-=========================================
+# A simple NODEJS REST & HTTP interaction with Clickatell platform API
 
-You can see our other libraries and more documentation at the [Clickatell APIs and Libraries Project](http://clickatell.github.io/).
+Inside the test.js file is an example implementation of the REST and HTTP API.
 
-------------------------------------
-
-
-Master: [![Build Status](https://secure.travis-ci.org/arcturial/clickatell-node.png?branch=master)](http://travis-ci.org/arcturial/clickatell)
-
-This library allows easy access to connecting the [Clickatell's](http://www.clickatell.com) different messenging API's.
-
-
-1. Installation
-------------------
-
-This library is managed by the **Node Package Manager**
-
-`npm install clickatell-node`
-
-2. Usage
-------------------
-
-All calls are asynchronous and the parameters follows the nodeJS convention of specifying any errors as the first parameter and the
-response as the second.
-
-```javascript
-
-var clickatell = require('clickatell-node').http(user, pass, api_id);
-// var clickatell = require('clickatell-node').rest(token);
-
-clickatell.sendMessage(["00000000000"], "My Message", {}, function (err, messages) {
-
-    for (var key in messages) {
-        var message = messages[key];
-
-        console.log(message);
-
-        // Message response format:
-        // message.id (false if error)
-        // message.destination
-        // message.error (false if no error)
-        // message.code (false if no error)
-    }
-
-});
+Simply require the file index.js file and use one of the methods to send. 
+Add the message you want to send, and add the cell number you're sending to, and the API key.
 
 ```
-
-
-3. Supported API calls
-------------------
-
-The available calls should be defined as the following. Whenever you write a new adapter (API type) you should also try to stick
-to this interface.
-
-```javascript
-
-sendMessage(to, message, extra, callback);
-
-getBalance(callback);
-
-stopMessage(apiMsgId, callback);
-
-queryMessage(apiMsgId, callback);
-
-routeCoverage(msisdn, callback);
-
-getMessageCharge(apiMsgId, callback);
-
+clickatell.rest("Hello testing message", ["27XXXXX-NUMBER","27XXXXX-NUMBER"], "APIKEY-HERE");
+clickatell.http("Hello testing message", ["27XXXXX-NUMBER","27XXXXX-NUMBER"], "APIKEY-HERE");
 ```
 
-The callback uses the standard way of handling response and will be invoked with the following parameters:
+### Run the code
 
-```javascript
-
-sendMessage(["0000000000"], "My Message", {}, function (err, messages) {
-
-});
+Simply trigger the sending by running "node test.js" in your terminal.
 
 ```
-
-4. SendMessage parameters that are not supported
----------------
-
-The `sendMessage` calls supports a third parameter called `extra`. This parameter can be used to specify any values in the [Clickatell documentation](http://www.clickatell.com) that the library does not support as part of the public interface.
-
-5. Testing
----------------
-
-To run the library test suite just execute `npm test` from the library root. Please make sure all tests are passing before pushing back any changes.
+node test.js
+```
