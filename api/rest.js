@@ -7,7 +7,6 @@ function Rest(content, to, apiKey) {
     this.to = to; // phone number
     this.apiKey = apiKey;
 
-    this.sendMessage(this.content,this.to,this.apiKey);
 }
 // class methods
 Rest.prototype.sendMessage = function(content, to, apiKey) {

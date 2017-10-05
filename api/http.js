@@ -7,7 +7,6 @@ function Http(content, to, apiKey) {
     this.to = to; // phone number
     this.apiKey = apiKey;
 
-    this.sendMessage(this.content,this.to,this.apiKey);
 }
 // class methods
 Http.prototype.sendMessage = function(content, to, apiKey) {
@@ -28,5 +27,6 @@ Http.prototype.sendMessage = function(content, to, apiKey) {
   });
   
 };
+
 // export the class
 module.exports = Http;
