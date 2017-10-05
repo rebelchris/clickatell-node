@@ -20,7 +20,7 @@ Simply trigger the sending by running "node test.js" in your terminal.
 node test.js
 ```
 
-### Handeling API callbacks
+### Handling API callbacks
 
 In the callback.js file you will find a code example that simply creates a NodeJS server and then listens on port 80.
 
