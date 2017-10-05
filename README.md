@@ -2,7 +2,7 @@
 
 Inside the test.js file is an example implementation of the REST and HTTP API.
 
-Simply require the file index.js file and use one of the methods to send. 
+Simply require the file clickatell-platform package and use one of the methods to send. 
 Add the message you want to send, and add the cell number you're sending to, and the API key.
 
 ```
