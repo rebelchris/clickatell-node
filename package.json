@@ -3,7 +3,7 @@
   "author": "Morne Zeelie <morne.zeelie@clickatell.com>",
   "description": "A simple NodeJs REST & HTTP interaction with Clickatell platform API",
   "main": "index.js",
-  "version": "2.0.2",
+  "version": "2.0.3",
   "license": "MIT",
   "repository": {
     "type": "git",
