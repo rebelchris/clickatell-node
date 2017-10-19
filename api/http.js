@@ -12,7 +12,7 @@ function Http(content, to, apiKey) {
 Http.prototype.sendMessage = function(content, to, apiKey) {
    
     // replace spaces in message with plus sign to work correctly with http call
-    var contentReplaced = content.split(' ').join('+');
+    var contentReplaced = encodeURIComponent(content.split(' ').join('+'));
 
     var options = { 
       method: 'GET',
