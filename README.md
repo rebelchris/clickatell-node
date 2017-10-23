@@ -8,7 +8,7 @@ Add the message you want to send, and add the cell number you're sending to, and
 ```
 var clickatell = require("clickatell-platform");
 
-///clickatell.sendMessageRest("Hello testing message", ["27XXXXX-NUMBER"], "APIKEY-HERE");
+//clickatell.sendMessageRest("Hello testing message", ["27XXXXX-NUMBER"], "APIKEY-HERE");
 
 clickatell.sendMessageHttp("Hello testing message", ["27XXXXX-NUMBER"], "APIKEY-HERE");
 
