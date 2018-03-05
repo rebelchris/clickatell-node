@@ -1,91 +1,114 @@
-Clickatell NodeJS Library
-=========================================
+# A simple NODEJS REST & HTTP interaction with Clickatell platform API
 
-You can see our other libraries and more documentation at the [Clickatell APIs and Libraries Project](http://clickatell.github.io/).
+Inside the test.js file is an example implementation of the REST and HTTP API.
 
-------------------------------------
+Simply require the clickatell-platform package and use one of the methods to send. 
+Add the message you want to send, and add the cell number you're sending to, and the API key.
 
+```
+var clickatell = require("clickatell-platform");
 
-Master: [![Build Status](https://secure.travis-ci.org/arcturial/clickatell-node.png?branch=master)](http://travis-ci.org/arcturial/clickatell)
+//clickatell.sendMessageRest("Hello testing message", ["27XXXXX-NUMBER"], "APIKEY-HERE");
 
-This library allows easy access to connecting the [Clickatell's](http://www.clickatell.com) different messenging API's.
+clickatell.sendMessageHttp("Hello testing message", ["27XXXXX-NUMBER"], "APIKEY-HERE");
 
-
-1. Installation
-------------------
-
-This library is managed by the **Node Package Manager**
-
-`npm install clickatell-node`
-
-2. Usage
-------------------
-
-All calls are asynchronous and the parameters follows the nodeJS convention of specifying any errors as the first parameter and the
-response as the second.
-
-```javascript
-
-var clickatell = require('clickatell-node').http(user, pass, api_id);
-// var clickatell = require('clickatell-node').rest(token);
-
-clickatell.sendMessage(["00000000000"], "My Message", {}, function (err, messages) {
-
-    for (var key in messages) {
-        var message = messages[key];
-
-        console.log(message);
-
-        // Message response format:
-        // message.id (false if error)
-        // message.destination
-        // message.error (false if no error)
-        // message.code (false if no error)
-    }
-
-});
 
 ```
 
+### Run the code
 
-3. Supported API calls
-------------------
+Simply create a file called test.js and add the code above.
+Then trigger the sending by running "node test.js" in your terminal.
 
-The available calls should be defined as the following. Whenever you write a new adapter (API type) you should also try to stick
-to this interface.
-
-```javascript
-
-sendMessage(to, message, extra, callback);
-
-getBalance(callback);
-
-stopMessage(apiMsgId, callback);
-
-queryMessage(apiMsgId, callback);
-
-routeCoverage(msisdn, callback);
-
-getMessageCharge(apiMsgId, callback);
+Remember to add the number you are sending to and your API Key to be able to send successfully.
 
 ```
-
-The callback uses the standard way of handling response and will be invoked with the following parameters:
-
-```javascript
-
-sendMessage(["0000000000"], "My Message", {}, function (err, messages) {
-
-});
-
+node test.js
 ```
 
-4. SendMessage parameters that are not supported
----------------
+### Handling API callbacks
 
-The `sendMessage` calls supports a third parameter called `extra`. This parameter can be used to specify any values in the [Clickatell documentation](http://www.clickatell.com) that the library does not support as part of the public interface.
+Create a file called server.js and paste the code below into it and save it.
 
-5. Testing
----------------
+It has a express post method pointing to yourdomain.com/sms which you will use on your platform api to send the callback
+posts to, to be able to read callback infromation.
 
-To run the library test suite just execute `npm test` from the library root. Please make sure all tests are passing before pushing back any changes.
+Simply run the code by typing "node server.js" and it will start to run on port 80, make sure it works by just going to yourdomain.com
+
+```
+node server.js"
+```
+
+```
+const express = require('express')
+const bodyParser = require('body-parser')
+
+
+const app = express()
+
+
+const http = require('http')
+const port = 80
+
+const server = http.createServer(app)
+
+
+app.use(bodyParser.urlencoded({     // to support URL-encoded bodies
+  extended: true
+}));
+app.use( bodyParser.json() );       // to support JSON-encoded bodies
+
+app.use(express.json());       // to support JSON-encoded bodies
+app.use(express.urlencoded()); // to support URL-encoded bodies
+
+server.listen(port, (err) => {
+  if (err) {
+    return console.log('something bad happened', err)
+  }
+
+  console.log(`server is listening on ${port}`);
+
+
+    app.get('/', function (req, res) {
+        res.send('It's working')
+    })
+
+    app.post('/sms', function (req, res) {
+        const body = req.body
+        console.log(body);
+
+
+        res.set('Content-Type', 'text/plain')
+        res.send(`You sent: ${body}`)
+    })
+
+
+})
+```
+
+Below is data that you will get back on the callback, once you send a sms.
+
+DELIVERED_TO_GATEWAY : 
+* integrationName
+* messageId
+* requestId
+* clientMessageId
+* to
+* from
+* statusCode
+* status
+* statusDescription
+* timestamp
+
+RECEIVED_BY_RECIPIENT :
+* integrationName
+* messageId
+* requestId
+* clientMessageId
+* to
+* from
+* statusCode
+* status
+* statusDescription
+* timestamp
+
