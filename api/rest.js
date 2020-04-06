@@ -29,12 +29,10 @@ Rest.prototype.sendMessage = function (content, to, apiKey) {
 
     // send the request
     Request(options, function (error, response, body) {
-      console.log(body);
-      console.log(error);
-      if (response.statusCode === 200) {
-        resolve(body);
-      } else {
+      if (error !== null) {
         reject(error);
+      } else {
+        resolve(body);
       }
     });
   });
