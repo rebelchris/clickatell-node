@@ -8,9 +8,16 @@ module.exports = {
         return sendMessageHttp;
     },
     sendMessageRest: function (content, to, apiKey) {
-        var rest = new Rest();
-        var sendMessageRest = rest.sendMessage(content, to, apiKey)
-        return sendMessageRest;
+        return new Promise((resolve, reject) => {
+            var rest = new Rest();
+            rest.sendMessage(content, to, apiKey)
+                .then(function (result) {
+                    resolve(result);
+                })
+                .catch(function (error) {
+                    reject(error);
+                });
+        });
     }
     // more methods coming
 }
